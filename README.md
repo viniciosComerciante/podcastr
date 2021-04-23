@@ -1,5 +1,5 @@
 <div align='center'>
-<img src='./logo.svg'>
+<img src='./logo.svg' width="100">
 
 <div>
     <img src="https://img.shields.io/github/repo-size/viniciosComerciante/podcastr">
@@ -27,7 +27,7 @@
 
 <br>
 
-<h2 style="font-size: 35px">ℹ️ Como utilizar</h2>
+<h2>ℹ️ Como utilizar</h2>
 
     Clone esse repositório
     $ git clone https://github.com/viniciosComerciante/Dogs.git
