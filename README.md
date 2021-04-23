@@ -27,7 +27,7 @@
 
 <br>
 
-<h2>ℹ️ Como utilizar</h2>
+<h2 style={color:"blue"}>ℹ️ Como utilizar</h2>
 
     Clone esse repositório
     $ git clone https://github.com/viniciosComerciante/Dogs.git
