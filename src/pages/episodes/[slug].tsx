@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { format, parseISO } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 
-import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { api } from "../../services/api";
 import { convertDurationToTimeString } from "../../utils/covertDurationToTimeString";
 import styles from "./episode.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { usePlayer } from "../../contexts/PlayerContext";
 
 type Episode = {
   id: string;
@@ -27,7 +27,8 @@ type EpisodeProps = {
 };
 
 const Episode = ({ episode }: EpisodeProps) => {
-  const router = useRouter();
+  
+  const {play} = usePlayer();
 
   return (
     <div className={styles.episode}>
@@ -44,7 +45,9 @@ const Episode = ({ episode }: EpisodeProps) => {
           src={episode.thumbnail}
           objectFit="cover"
         ></Image>
-        <button>
+        <button type="button" onClick={()=>{
+          play(episode);
+        }}>
           <img src="/play.svg" alt="Tocar este episodio" />
         </button>
       </div>

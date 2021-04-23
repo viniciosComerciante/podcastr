@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useContext } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { PlayerContext } from "../../contexts/PlayerContext";
+import { usePlayer } from "../../contexts/PlayerContext";
 import styles from "./styles.module.scss";
 
 const Player = () => {
@@ -12,9 +12,15 @@ const Player = () => {
     episodeList,
     currentEpisodeIndex,
     isPlaying,
+    isLooping,
     togglePlay,
-    setPlayingState
-  } = React.useContext(PlayerContext);
+    toggleLoop,
+    setPlayingState,
+    playNext,
+    playPrevious,
+    hasNext,
+    hasPrevious
+  } = usePlayer();
 
   React.useEffect(() => {
     if (!audioRef.current) {
@@ -75,12 +81,14 @@ const Player = () => {
         </div>
 
         {episode && (
-          <audio 
-            src={episode.url} 
-            ref={audioRef} 
-            autoPlay 
-            onPlay={()=> setPlayingState(true)}
-            onPause={()=> setPlayingState(false)}></audio>
+          <audio
+            src={episode.url}
+            ref={audioRef}
+            autoPlay
+            loop={isLooping}
+            onPlay={() => setPlayingState(true)}
+            onPause={() => setPlayingState(false)}
+          ></audio>
         )}
 
         <div className={styles.buttons}>
@@ -88,7 +96,13 @@ const Player = () => {
             <img src="/shuffle.svg" alt="Embaralhar" />
           </button>
 
-          <button type="button" disabled={!episode}>
+          <button
+            type="button"
+            disabled={!episode || !hasPrevious}
+            onClick={() => {
+              playPrevious();
+            }}
+          >
             <img src="/play-previous.svg" alt="Tocar anterior" />
           </button>
 
@@ -105,11 +119,17 @@ const Player = () => {
             )}
           </button>
 
-          <button type="button" disabled={!episode}>
+          <button
+            type="button"
+            disabled={!episode || !hasNext}
+            onClick={() => {
+              playNext();
+            }}
+          >
             <img src="/play-next.svg" alt="Tocar Proxima" />
           </button>
 
-          <button type="button" disabled={!episode}>
+          <button type="button" disabled={!episode} onClick={()=> toggleLoop()} className={isLooping ? styles.isActive : ""}>
             <img src="/repeat.svg" alt="Repetir" />
           </button>
         </div>
