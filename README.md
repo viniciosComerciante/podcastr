@@ -1,5 +1,5 @@
 <div align='center'>
-<img src='./logo.svg' width="500">
+<img src='./logo.svg' width="800">
 
 <div>
     <img src="https://img.shields.io/github/repo-size/viniciosComerciante/podcastr">
